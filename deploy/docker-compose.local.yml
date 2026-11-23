@@ -1,6 +1,10 @@
+# Site-specific overrides: pin the compose project name and the published web
+# port (host nginx proxies to 127.0.0.1:3011). `!override` REPLACES the ports
+# list from docker-compose.nginx.yml instead of appending it - without it we'd
+# also bind :3000, which another stack on this host already owns.
+name: metrograph
+
 services:
   web:
-    ports:
+    ports: !override
       - "127.0.0.1:3011:3000"
-
-name: metrograph
