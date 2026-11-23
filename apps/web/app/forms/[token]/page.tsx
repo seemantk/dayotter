@@ -1,5 +1,6 @@
 import { RoutingRunner } from "@/components/routing-runner";
 import { Card, CardBody } from "@/components/ui/card";
+import { BRAND } from "@/lib/marketing";
 import { getFormByToken } from "@/lib/routing/routing";
 import { Split } from "lucide-react";
 import type { Metadata } from "next";
@@ -14,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ token: string }>;
 }): Promise<Metadata> {
   const form = await getFormByToken((await params).token);
-  return { title: form ? `${form.title} - DayOtter` : "DayOtter" };
+  return { title: form ? `${form.title} - ${BRAND.name}` : BRAND.name };
 }
 
 export default async function PublicRoutingFormPage({
@@ -45,7 +46,7 @@ export default async function PublicRoutingFormPage({
       <p className="mt-6 text-center text-xs text-[var(--color-faint)]">
         Powered by{" "}
         <Link href="/" className="hover:text-[var(--color-text)]">
-          DayOtter
+          {BRAND.name}
         </Link>
       </p>
     </main>

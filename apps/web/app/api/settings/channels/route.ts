@@ -1,4 +1,5 @@
 import { requireFeature } from "@/lib/billing/require-feature";
+import { BRAND } from "@/lib/marketing";
 import {
   channelInputSchema,
   configFromInput,
@@ -67,7 +68,7 @@ export const POST = withUser(async (u, request) => {
 
   // Verify by delivering a real test message before we trust the channel.
   const test = await dispatchToChannel(input.type, config, {
-    title: "DayOtter connected",
+    title: `${BRAND.name} connected`,
     body: "This channel will now receive your meeting reminders.",
     url: `${appUrl}/settings/notifications`,
   });

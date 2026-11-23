@@ -242,7 +242,7 @@ export const APPS: AppDefinition[] = [
     id: "plugins",
     name: "Plugins",
     category: "automation",
-    blurb: "Extend DayOtter in-process with trusted plugins (DAYOTTER_PLUGINS).",
+    blurb: "Extend the app in-process with trusted plugins (DAYOTTER_PLUGINS).",
     color: "#F59E0B",
     href: "/settings/developer",
     builtIn: true,

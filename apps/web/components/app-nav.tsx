@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { resetAnalytics } from "@/lib/analytics";
 import { signOut } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/cn";
+import { BRAND } from "@/lib/marketing";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -33,7 +34,7 @@ export function AppNav({ user }: { user: { name?: string | null; email: string }
     <aside className="hidden h-full w-64 shrink-0 flex-col overflow-y-auto border-r border-[var(--color-border)] bg-[var(--color-surface)] p-3 lg:flex">
       <Link href="/dashboard" className="flex items-center gap-2 px-2 py-3">
         <BrandMark size={34} />
-        <span className="font-display text-[17px] tracking-[-0.01em]">DayOtter</span>
+        <span className="font-display text-[17px] tracking-[-0.01em]">{BRAND.name}</span>
       </Link>
 
       <nav className="mt-4 flex flex-1 flex-col gap-5">

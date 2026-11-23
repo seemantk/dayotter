@@ -41,7 +41,9 @@ const schema = z.object({
 
   RESEND_API_KEY: z.string().optional(),
   SMTP_URL: z.string().optional(),
-  EMAIL_FROM: z.string().default("DayOtter <no-reply@example.com>"),
+  EMAIL_FROM: z
+    .string()
+    .default(`${process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "DayOtter"} <no-reply@example.com>`),
 
   // Optional Cloudflare Turnstile captcha on the public booking form.
   TURNSTILE_SECRET: z.string().optional(),

@@ -1,0 +1,6 @@
+services:
+  web:
+    ports:
+      - "127.0.0.1:3011:3000"
+
+name: metrograph

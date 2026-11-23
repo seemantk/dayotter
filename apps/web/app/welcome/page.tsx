@@ -2,6 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
+import { BRAND } from "@/lib/marketing";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,7 +10,7 @@ import { useState } from "react";
 const SLIDES = [
   {
     img: "/brand/illustrations/otter-plan.png",
-    title: "Welcome to DayOtter",
+    title: `Welcome to ${BRAND.name}`,
     body: "The calm home for your time - scheduling that respects every calendar you own.",
   },
   {

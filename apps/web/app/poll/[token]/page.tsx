@@ -1,5 +1,6 @@
 import { PollVoteForm } from "@/components/poll-vote-form";
 import { Card, CardBody } from "@/components/ui/card";
+import { BRAND } from "@/lib/marketing";
 import { getPollByToken } from "@/lib/polls/polls";
 import { CalendarCheck, Clock } from "lucide-react";
 import type { Metadata } from "next";
@@ -14,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ token: string }>;
 }): Promise<Metadata> {
   const poll = await getPollByToken((await params).token);
-  return { title: poll ? `Vote: ${poll.title} - DayOtter` : "Poll - DayOtter" };
+  return { title: poll ? `Vote: ${poll.title} - ${BRAND.name}` : `Poll - ${BRAND.name}` };
 }
 
 export default async function PublicPollPage({
@@ -80,7 +81,7 @@ export default async function PublicPollPage({
       <p className="mt-6 text-center text-xs text-[var(--color-faint)]">
         Powered by{" "}
         <Link href="/" className="hover:text-[var(--color-text)]">
-          DayOtter
+          {BRAND.name}
         </Link>
       </p>
     </main>

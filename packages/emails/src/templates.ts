@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { brandName } from "./brand";
 import {
   type EmailLocale,
   et,
@@ -117,8 +118,8 @@ function shell(
     ? `<a href="${esc(safeUrl(cta.url))}" style="display:inline-block;margin-top:12px;background:#4f46e5;color:#fff;text-decoration:none;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:500">${esc(cta.label)}</a>`
     : "";
   const footer = unsubscribeUrl
-    ? `<p style="margin:24px 0 0;color:#98a0ae;font-size:12px">Sent by DayOtter · <a href="${esc(safeUrl(unsubscribeUrl))}" style="color:#98a0ae;text-decoration:underline">Unsubscribe from tips</a></p>`
-    : `<p style="margin:24px 0 0;color:#98a0ae;font-size:12px">Sent by DayOtter</p>`;
+    ? `<p style="margin:24px 0 0;color:#98a0ae;font-size:12px">Sent by ${brandName()} · <a href="${esc(safeUrl(unsubscribeUrl))}" style="color:#98a0ae;text-decoration:underline">Unsubscribe from tips</a></p>`
+    : `<p style="margin:24px 0 0;color:#98a0ae;font-size:12px">Sent by ${brandName()}</p>`;
   return `<div style="max-width:520px;margin:0 auto;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
     <h2 style="font-size:18px;color:#0c0e14;margin:0 0 14px">${heading}</h2>
     ${body}${button}
@@ -242,13 +243,13 @@ export function guardrailAlert(d: GuardrailAlertData): Rendered {
   const hello = d.ownerName ? `Hi ${d.ownerName}, ` : "";
   const summary =
     d.count > 1
-      ? `${hello}the DayOtter assistant blocked ${d.count} suspicious requests in ${d.sourceLabel}. The most recent was at ${d.when}.`
-      : `${hello}the DayOtter assistant blocked a suspicious request in ${d.sourceLabel} at ${d.when}.`;
+      ? `${hello}the ${brandName()} assistant blocked ${d.count} suspicious requests in ${d.sourceLabel}. The most recent was at ${d.when}.`
+      : `${hello}the ${brandName()} assistant blocked a suspicious request in ${d.sourceLabel} at ${d.when}.`;
   return {
     subject:
       d.count > 1
-        ? `DayOtter security: ${d.count} requests blocked by the assistant`
-        : "DayOtter security: the assistant blocked a suspicious request",
+        ? `${brandName()} security: ${d.count} requests blocked by the assistant`
+        : `${brandName()} security: the assistant blocked a suspicious request`,
     text: `${summary}\n\nThe assistant refused automatically - nothing was changed on your calendar and no action is needed. This note is just so you have visibility.\n\nMost recent input:\n"${d.sample}"\n\nReview the security log: ${d.reviewUrl}`,
     html: shell(
       "The assistant blocked a suspicious request",
@@ -563,8 +564,8 @@ export function dailyBriefing(d: DailyBriefingData): Rendered {
       : d.meetings.map((m) => `${m.time} - ${m.title}`).join("\n");
   return {
     subject,
-    text: `${d.dateLabel}\n${textBody}${d.focusLabel ? `\n${d.focusLabel}` : ""}\n\nOpen DayOtter: ${d.manageUrl}`,
-    html: shell("Your morning briefing", lines, { label: "Open DayOtter", url: d.manageUrl }),
+    text: `${d.dateLabel}\n${textBody}${d.focusLabel ? `\n${d.focusLabel}` : ""}\n\nOpen ${brandName()}: ${d.manageUrl}`,
+    html: shell("Your morning briefing", lines, { label: `Open ${brandName()}`, url: d.manageUrl }),
   };
 }
 
@@ -608,8 +609,11 @@ export function teamBriefing(d: TeamBriefingData): Rendered {
     .join("\n");
   return {
     subject,
-    text: `${d.teamName} - ${d.dateLabel}\n${d.totalMeetings} meetings today\n${textBody}${d.focusLabel ? `\n${d.focusLabel}` : ""}\n\nOpen DayOtter: ${d.manageUrl}`,
-    html: shell(`${esc(d.teamName)} - today`, lines, { label: "Open DayOtter", url: d.manageUrl }),
+    text: `${d.teamName} - ${d.dateLabel}\n${d.totalMeetings} meetings today\n${textBody}${d.focusLabel ? `\n${d.focusLabel}` : ""}\n\nOpen ${brandName()}: ${d.manageUrl}`,
+    html: shell(`${esc(d.teamName)} - today`, lines, {
+      label: `Open ${brandName()}`,
+      url: d.manageUrl,
+    }),
   };
 }
 
@@ -671,14 +675,14 @@ export interface ActivationEmailData {
 export function activationShareLink(d: ActivationEmailData): Rendered {
   const hi = d.name ? `Hi ${esc(d.name)},` : "Hi,";
   const lines = [
-    `${hi} you set DayOtter up but haven't shared your booking link yet, and that link is really the whole point.`,
+    `${hi} you set ${brandName()} up but haven't shared your booking link yet, and that link is really the whole point.`,
     "Send it once and anyone can grab a time that works for both of you, with none of the back and forth.",
     `Here's yours: <a href="${esc(safeUrl(d.bookingUrl))}">${esc(d.bookingUrl)}</a>`,
     "Drop it in your email signature or a reply and the first booking usually lands within a day.",
   ];
   return {
     subject: "Your booking link is ready to share",
-    text: `${d.name ? `Hi ${d.name},` : "Hi,"} you set DayOtter up but haven't shared your booking link yet.\n\nHere's yours: ${d.bookingUrl}\n\nDrop it in your email signature or a reply, and the first booking usually lands within a day.\n\nOpen your page: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
+    text: `${d.name ? `Hi ${d.name},` : "Hi,"} you set ${brandName()} up but haven't shared your booking link yet.\n\nHere's yours: ${d.bookingUrl}\n\nDrop it in your email signature or a reply, and the first booking usually lands within a day.\n\nOpen your page: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
     html: shell(
       "Share your link and let people book you",
       lines,
@@ -695,13 +699,13 @@ export function activationShareLink(d: ActivationEmailData): Rendered {
 export function activationConnectCalendar(d: ActivationEmailData): Rendered {
   const hi = d.name ? `Hi ${esc(d.name)},` : "Hi,";
   const lines = [
-    `${hi} welcome to DayOtter. You're one step from being bookable.`,
-    "Connect your Google, Outlook or Apple calendar and DayOtter only ever offers times when you're actually free, then writes each booking straight back onto it.",
+    `${hi} welcome to ${brandName()}. You're one step from being bookable.`,
+    `Connect your Google, Outlook or Apple calendar and ${brandName()} only ever offers times when you're actually free, then writes each booking straight back onto it.`,
     "It takes about a minute, and nothing double-books after that.",
   ];
   return {
     subject: "Connect your calendar so you never double-book",
-    text: `${d.name ? `Hi ${d.name},` : "Hi,"} welcome to DayOtter. Connect your Google, Outlook or Apple calendar and you'll only ever be offered times you're actually free.\n\nConnect it: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
+    text: `${d.name ? `Hi ${d.name},` : "Hi,"} welcome to ${brandName()}. Connect your Google, Outlook or Apple calendar and you'll only ever be offered times you're actually free.\n\nConnect it: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
     html: shell(
       "One step to being bookable",
       lines,
@@ -734,7 +738,7 @@ export function weeklyDigest(d: WeeklyDigestData): Rendered {
   const quiet = d.meetings === 0 && d.focusHours === 0;
   const lines = quiet
     ? [
-        `${hi} last week was quiet on DayOtter, no meetings booked.`,
+        `${hi} last week was quiet on ${brandName()}, no meetings booked.`,
         "If your link isn't out there yet, this is a good week to share it. One link, and people can grab a time that works for both of you.",
       ]
     : [
@@ -749,13 +753,13 @@ export function weeklyDigest(d: WeeklyDigestData): Rendered {
       ].filter(Boolean);
   return {
     subject: quiet
-      ? "Your week on DayOtter"
-      : `Your week on DayOtter: ${d.meetings} meeting${d.meetings === 1 ? "" : "s"}`,
-    text: `${d.name ? `Hi ${d.name},` : "Hi,"}\n\nLast week: ${d.meetings} meetings (${d.hours}h), ${d.focusHours}h focus protected. ${d.upcoming} coming up.\n\nOpen DayOtter: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
+      ? `Your week on ${brandName()}`
+      : `Your week on ${brandName()}: ${d.meetings} meeting${d.meetings === 1 ? "" : "s"}`,
+    text: `${d.name ? `Hi ${d.name},` : "Hi,"}\n\nLast week: ${d.meetings} meetings (${d.hours}h), ${d.focusHours}h focus protected. ${d.upcoming} coming up.\n\nOpen ${brandName()}: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
     html: shell(
-      "Your week on DayOtter",
+      `Your week on ${brandName()}`,
       lines,
-      { label: "Open DayOtter", url: d.manageUrl },
+      { label: `Open ${brandName()}`, url: d.manageUrl },
       d.unsubscribeUrl,
     ),
   };
@@ -768,13 +772,13 @@ export function weeklyDigest(d: WeeklyDigestData): Rendered {
 export function firstBookingCelebration(d: ActivationEmailData): Rendered {
   const hi = d.name ? `${esc(d.name)}, ` : "";
   const lines = [
-    `${hi}you just got your first booking on DayOtter. That's the whole thing working: someone picked a time, and it's on your calendar.`,
+    `${hi}you just got your first booking on ${brandName()}. That's the whole thing working: someone picked a time, and it's on your calendar.`,
     "Keep the link handy and it'll keep happening. The people who share it in their signature or bio get booked the most.",
     `Your link: <a href="${esc(safeUrl(d.bookingUrl))}">${esc(d.bookingUrl)}</a>`,
   ];
   return {
     subject: "🎉 Your first booking is in",
-    text: `${d.name ? `${d.name}, ` : ""}you just got your first booking on DayOtter.\n\nKeep sharing your link: ${d.bookingUrl}\n\nOpen DayOtter: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
+    text: `${d.name ? `${d.name}, ` : ""}you just got your first booking on ${brandName()}.\n\nKeep sharing your link: ${d.bookingUrl}\n\nOpen ${brandName()}: ${d.manageUrl}\n\nUnsubscribe from tips: ${d.unsubscribeUrl}`,
     html: shell(
       "Your first booking is in 🎉",
       lines,

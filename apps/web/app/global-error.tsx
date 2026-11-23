@@ -29,7 +29,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
         />
         <h1 style={{ fontSize: 30, margin: 0, fontWeight: 700 }}>Something washed out.</h1>
         <p style={{ color: "#6b6678", maxWidth: 360, marginTop: 10, lineHeight: 1.5 }}>
-          A problem broke the whole page. Reload to get the otter back.
+          A problem broke the whole page. Reload to get back on track.
         </p>
         <button
           type="button"

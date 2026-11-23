@@ -12,14 +12,13 @@ import "./globals.css";
 // small uppercase eyebrow labels. Self-hosted via the `geist` package (no runtime
 // network request).
 
-const DESCRIPTION =
-  "DayOtter is the AI-native, open-source scheduling platform. Otter books meetings, protects your focus, and clears the back-and-forth, always confirm-first. Sync every calendar, run your team, self-host it all under AGPLv3.";
+const DESCRIPTION = `${BRAND.name} is the AI-native, open-source scheduling platform. Otter books meetings, protects your focus, and clears the back-and-forth, always confirm-first. Sync every calendar, run your team, self-host it all under AGPLv3.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
   title: {
-    default: "DayOtter - the AI-native, open-source scheduling platform",
-    template: "%s - DayOtter",
+    default: `${BRAND.name} - the AI-native, open-source scheduling platform`,
+    template: `%s - ${BRAND.name}`,
   },
   description: DESCRIPTION,
   applicationName: BRAND.name,
@@ -39,18 +38,18 @@ export const metadata: Metadata = {
   creator: BRAND.name,
   publisher: BRAND.name,
   alternates: { canonical: "/" },
-  icons: { icon: "/brand/dayotter-icon.svg", apple: "/brand/dayotter-icon.svg" },
+  icons: { icon: "/brand/icon.svg", apple: "/brand/icon.svg" },
   openGraph: {
     type: "website",
     siteName: BRAND.name,
-    title: "DayOtter - the AI-native, open-source scheduling platform",
+    title: `${BRAND.name} - the AI-native, open-source scheduling platform`,
     description: DESCRIPTION,
     url: BRAND.url,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DayOtter - the AI-native, open-source scheduling platform",
+    title: `${BRAND.name} - the AI-native, open-source scheduling platform`,
     description: DESCRIPTION,
     creator: "@dayotter",
   },

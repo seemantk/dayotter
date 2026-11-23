@@ -6,6 +6,7 @@ import { PRO_PRICE_USD, isCloud } from "@/lib/billing/edition";
 import { getEntitlements, primaryOrg } from "@/lib/billing/entitlements";
 import { FEATURE_LABEL, FEATURE_TIER, type Feature } from "@/lib/billing/features";
 import { seatCount, syncSubscriptionById } from "@/lib/billing/subscription";
+import { BRAND } from "@/lib/marketing";
 import {
   paymentsEnabled,
   proPriceId,
@@ -46,7 +47,7 @@ export default async function BillingPage({
   if (!isCloud) {
     return (
       <div>
-        <PageHeader title="Billing" description="Your DayOtter edition and plan." />
+        <PageHeader title="Billing" description={`Your ${BRAND.name} edition and plan.`} />
         <Card className="max-w-2xl">
           <CardBody className="space-y-4 p-6">
             <div className="flex items-center gap-2 font-medium">
@@ -96,7 +97,7 @@ export default async function BillingPage({
 
   return (
     <div>
-      <PageHeader title="Billing" description="Manage your DayOtter plan." />
+      <PageHeader title="Billing" description={`Manage your ${BRAND.name} plan.`} />
       <Card className="max-w-2xl">
         <CardBody className="space-y-5 p-6">
           <div className="flex items-baseline justify-between">

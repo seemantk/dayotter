@@ -42,7 +42,7 @@ export function EmptyState({
   title: string;
   description?: string;
   action?: ReactNode;
-  /** Otter illustration shown above the title; pass another /brand/illustrations/* to vary it. */
+  /** Illustration shown above the title; pass another /brand/illustrations/* to vary it. */
   illustration?: string;
 }) {
   return (

@@ -24,7 +24,7 @@ export function OrganizationJsonLd() {
           "@type": "Organization",
           name: BRAND.name,
           url: BRAND.url,
-          logo: `${BRAND.url}/brand/dayotter-icon.svg`,
+          logo: `${BRAND.url}/brand/icon.svg`,
           email: BRAND.email,
           sameAs: [BRAND.x, BRAND.github],
         }}
@@ -125,7 +125,7 @@ export function ArticleJsonLd(props: {
         publisher: {
           "@type": "Organization",
           name: BRAND.name,
-          logo: { "@type": "ImageObject", url: `${BRAND.url}/brand/dayotter-icon.svg` },
+          logo: { "@type": "ImageObject", url: `${BRAND.url}/brand/icon.svg` },
         },
       }}
     />

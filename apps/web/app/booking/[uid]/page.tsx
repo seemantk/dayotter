@@ -4,6 +4,7 @@ import { Card, CardBody } from "@/components/ui/card";
 import { getHostPixels } from "@/lib/booking/branding";
 import { googleCalendarUrl } from "@/lib/booking/ics";
 import { formatMoney } from "@/lib/booking/money";
+import { BRAND } from "@/lib/marketing";
 import { eq, getDb, schema } from "@dayotter/db";
 import {
   CalendarPlus,
@@ -211,14 +212,14 @@ export default async function BookingPage({
       <p className="mt-6 flex items-center justify-center gap-1.5 text-xs text-[var(--color-faint)]">
         <span className="relative inline-block h-3.5 w-3.5 shrink-0 overflow-hidden rounded-[3px]">
           <img
-            src="/brand/dayotter-icon.svg"
+            src="/brand/icon.svg"
             alt=""
             width={21}
             height={21}
             className="absolute -left-[3px] -top-[3px] max-w-none"
           />
         </span>
-        Powered by <span className="text-[var(--color-muted)]">DayOtter</span>
+        Powered by <span className="text-[var(--color-muted)]">{BRAND.name}</span>
       </p>
     </main>
   );

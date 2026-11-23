@@ -7,6 +7,7 @@ import { FormError } from "@/components/ui/form";
 import { Input, Label } from "@/components/ui/input";
 import { identify, track } from "@/lib/analytics";
 import { signIn, twoFactor } from "@/lib/auth/auth-client";
+import { BRAND } from "@/lib/marketing";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -54,7 +55,9 @@ export default function SignInPage() {
   return (
     <div>
       <h1 className="font-display text-3xl leading-tight tracking-[-0.01em]">Welcome back</h1>
-      <p className="mt-2 text-sm text-[var(--color-muted)]">Sign in to your DayOtter account.</p>
+      <p className="mt-2 text-sm text-[var(--color-muted)]">
+        Sign in to your {BRAND.name} account.
+      </p>
 
       <div className="mt-7 space-y-3">
         <GoogleAuthButton label="Continue with Google" />
@@ -101,7 +104,7 @@ export default function SignInPage() {
       </form>
 
       <p className="mt-6 text-center text-sm text-[var(--color-muted)]">
-        New to DayOtter?{" "}
+        New to {BRAND.name}?{" "}
         <Link href="/sign-up" className="font-medium text-[var(--color-accent)] hover:underline">
           Create an account
         </Link>

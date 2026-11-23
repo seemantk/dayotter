@@ -13,6 +13,7 @@ import { getAgenda } from "@/lib/calendar/agenda";
 import { type BusyItem, analyzeSchedule } from "@/lib/calendar/analyze";
 import { updateBookingCalendarEvent } from "@/lib/calendar/host-calendar";
 import { recurringBlockOccurrences } from "@/lib/calendar/recurrence";
+import { BRAND } from "@/lib/marketing";
 import {
   channelInputSchema,
   configFromInput,
@@ -71,7 +72,7 @@ export async function executeReadTool(
           ...(i.attendees.length ? { attendees: i.attendees } : {}),
         })),
         note: items.length
-          ? "'booking' = a DayOtter booking (can be rescheduled/cancelled); 'external' = a synced calendar event (read-only)."
+          ? "'booking' = a booking in this app (can be rescheduled/cancelled); 'external' = a synced calendar event (read-only)."
           : "Nothing scheduled in that window - the host is free.",
       });
     }
@@ -1083,7 +1084,7 @@ export async function executeActionTool(
         const config = configFromInput(parsed.data);
         const appUrl = env.APP_URL;
         const test = await dispatchToChannel(type, config, {
-          title: "DayOtter connected",
+          title: `${BRAND.name} connected`,
           body: "This channel will now receive your meeting reminders.",
           url: `${appUrl}/settings/notifications`,
         });
@@ -1210,7 +1211,7 @@ export async function executeActionTool(
         if (!invitee) {
           return {
             ok: false,
-            message: "No DayOtter account with that email yet - they need to sign up first.",
+            message: "No account with that email yet - they need to sign up first.",
           };
         }
         await db

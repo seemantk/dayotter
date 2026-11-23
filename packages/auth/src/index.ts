@@ -1,6 +1,6 @@
 import { expo } from "@better-auth/expo";
 import { eq, getDb, schema } from "@dayotter/db";
-import { sendEmail } from "@dayotter/emails";
+import { brandName, sendEmail } from "@dayotter/emails";
 import { sendTextSms, twilioConfigured } from "@dayotter/notifications";
 import { type BetterAuthPlugin, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -41,9 +41,9 @@ export const auth = betterAuth({
     sendResetPassword: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Reset your dayotter password",
-        text: `Reset your dayotter password: ${url}\n\nIf you didn't request this, you can ignore this email.`,
-        html: `<p>Someone requested a password reset for your dayotter account.</p>
+        subject: `Reset your ${brandName()} password`,
+        text: `Reset your ${brandName()} password: ${url}\n\nIf you didn't request this, you can ignore this email.`,
+        html: `<p>Someone requested a password reset for your ${brandName()} account.</p>
 <p><a href="${url}">Reset your password</a></p>
 <p style="color:#666;font-size:13px">If this wasn't you, you can safely ignore this email - your password won't change.</p>`,
       });
@@ -59,9 +59,9 @@ export const auth = betterAuth({
     sendVerificationEmail: async ({ user, url }) => {
       await sendEmail({
         to: user.email,
-        subject: "Verify your DayOtter email",
-        text: `Welcome to DayOtter! Confirm your email to secure your account: ${url}`,
-        html: `<p>Welcome to DayOtter - confirm your email to secure your account.</p>
+        subject: `Verify your ${brandName()} email`,
+        text: `Welcome to ${brandName()}! Confirm your email to secure your account: ${url}`,
+        html: `<p>Welcome to ${brandName()} - confirm your email to secure your account.</p>
 <p><a href="${url}">Verify your email</a></p>
 <p style="color:#666;font-size:13px">If you didn't sign up, you can ignore this email.</p>`,
       });
@@ -114,14 +114,14 @@ export const auth = betterAuth({
     // instead of a session until they verify a code (see the web sign-in step).
     // Cast for the same TS2742 reason as expo()/phoneNumber() below - keeps the
     // inferred auth type portable; the plugin still registers its endpoints.
-    twoFactor({ issuer: "DayOtter" }) as BetterAuthPlugin,
+    twoFactor({ issuer: brandName() }) as BetterAuthPlugin,
     // Phone + OTP sign-in - enabled only when Twilio is configured (it sends the
     // code). Phone-only users get an auto-provisioned account via a temp email.
     ...(twilioConfigured()
       ? [
           phoneNumber({
             sendOTP: async ({ phoneNumber: phone, code }) => {
-              await sendTextSms(phone, `Your DayOtter code is ${code}`);
+              await sendTextSms(phone, `Your ${brandName()} code is ${code}`);
             },
             signUpOnVerification: {
               getTempEmail: (phone) => `${phone.replace(/[^0-9]/g, "")}@phone.dayotter.local`,

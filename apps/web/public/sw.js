@@ -13,7 +13,7 @@ self.addEventListener("push", (event) => {
     data = { body: event.data ? event.data.text() : "" };
   }
 
-  const title = data.title || "DayOtter";
+  const title = data.title || "Scheduling";
   const options = {
     body: data.body || "",
     icon: "/brand/notification-icon.png",

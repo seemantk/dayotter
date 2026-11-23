@@ -151,7 +151,7 @@ export async function createPoll(
           to: invitee.email,
           ...pollInvitation({
             pollTitle: result.poll.title,
-            hostName: host?.name ?? "A DayOtter user",
+            hostName: host?.name ?? "A registered user",
             voteUrl,
             optionCount: times.length,
             message: result.poll.inviteMessage ?? undefined,

@@ -1,3 +1,4 @@
+import { BRAND } from "@/lib/marketing";
 import { ImageResponse } from "next/og";
 
 /**
@@ -12,6 +13,12 @@ import { ImageResponse } from "next/og";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
+
+/** Host-only display form of the brand URL for the OG footer pill. */
+const SITE = BRAND.url
+  .replace(/^https?:\/\//, "")
+  .replace(/^www\./, "")
+  .replace(/\/.*$/, "");
 
 const BG = "#faf9f6";
 const SURFACE = "#ffffff";
@@ -55,7 +62,7 @@ export function ogImage({
           }}
         />
         <div style={{ fontSize: 30, fontWeight: 700, color: TEXT, letterSpacing: -0.5 }}>
-          DayOtter
+          {BRAND.name}
         </div>
       </div>
 
@@ -116,7 +123,7 @@ export function ogImage({
             fontWeight: 600,
           }}
         >
-          dayotter.com
+          {SITE}
         </div>
         <div style={{ fontSize: 22, color: MUTED }}>AI-native, open-source scheduling</div>
       </div>

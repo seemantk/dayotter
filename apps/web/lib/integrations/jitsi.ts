@@ -1,3 +1,5 @@
+import { BRAND } from "../marketing";
+
 /**
  * Jitsi Meet video rooms. Unlike Zoom/Meet there's no account or OAuth - a room
  * is just a URL, so we derive one per booking from its (unguessable) uid. Points
@@ -6,5 +8,5 @@
  */
 export function jitsiRoomUrl(uid: string): string {
   const base = (process.env.JITSI_BASE_URL || "https://meet.jit.si").replace(/\/+$/, "");
-  return `${base}/DayOtter-${uid}`;
+  return `${base}/${BRAND.name}-${uid}`;
 }

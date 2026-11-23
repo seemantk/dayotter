@@ -1,7 +1,11 @@
 /** Brand + marketing constants. One place for links, contact, and footer nav. */
 
+/** Display name baked into the web build. Use `||`, not `??`: Docker build args
+ *  default to an EMPTY string, and `"" ?? default` would keep the empty string. */
+const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "DayOtter";
+
 export const BRAND = {
-  name: "DayOtter",
+  name: BRAND_NAME,
   tagline: "The calm home for your time.",
   /** Canonical site origin - drives metadataBase, sitemap, canonical URLs, JSON-LD.
    * Use `||`, not `??`: the Docker build sets NEXT_PUBLIC_APP_URL to an EMPTY

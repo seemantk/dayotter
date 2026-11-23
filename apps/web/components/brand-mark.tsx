@@ -1,12 +1,11 @@
 import { cn } from "@/lib/cn";
 
 /**
- * The DayOtter brand mark - the otter-with-calendar app icon.
+ * The Metrograph brand mark - the map-pin-with-pulse app icon.
  *
- * Renders the shared asset at /brand/dayotter-icon.svg, cropped so the rounded
- * tile fills the box. This is the single source of the logo across the app
- * (sidebar, mobile nav, marketing nav + footer, auth panel); swap the asset
- * file to update every placement at once.
+ * Renders the shared asset at /brand/icon.svg. This is the single source of the
+ * logo across the app (sidebar, mobile nav, marketing nav + footer, auth panel);
+ * swap the asset file to update every placement at once.
  */
 export function BrandMark({
   size = 28,
@@ -15,7 +14,8 @@ export function BrandMark({
   size?: number;
   className?: string;
 }) {
-  const scale = 1.47; // crop the icon's transparent padding so the tile fills
+  // The mark fills its canvas (no transparent padding to crop).
+  const scale = 1;
   const inner = Math.round(size * scale);
   const offset = Math.round((inner - size) / 2);
   return (
@@ -25,7 +25,7 @@ export function BrandMark({
       style={{ height: size, width: size, borderRadius: Math.round(size * 0.23) }}
     >
       <img
-        src="/brand/dayotter-icon.svg"
+        src="/brand/icon.svg"
         alt=""
         width={inner}
         height={inner}

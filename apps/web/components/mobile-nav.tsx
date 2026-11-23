@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { resetAnalytics } from "@/lib/analytics";
 import { signOut } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/cn";
+import { BRAND } from "@/lib/marketing";
 import { LogOut, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -33,7 +34,7 @@ export function MobileNav() {
       <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)]/85 px-4 backdrop-blur lg:hidden">
         <Link href="/dashboard" className="flex items-center gap-2">
           <BrandMark size={34} />
-          <span className="font-display text-[17px] tracking-[-0.01em]">DayOtter</span>
+          <span className="font-display text-[17px] tracking-[-0.01em]">{BRAND.name}</span>
         </Link>
         <div className="flex items-center gap-2">
           <ThemeToggle />

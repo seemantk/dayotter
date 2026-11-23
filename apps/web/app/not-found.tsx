@@ -14,7 +14,7 @@ export default function NotFound() {
         This page drifted off.
       </h1>
       <p className="mt-3 max-w-sm leading-relaxed text-[var(--color-muted)]">
-        The otter looked everywhere and couldn't find it. Let's get you back to calmer waters.
+        Nothing is mapped here yet. Let's get you back on course.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/" className={buttonVariants({ variant: "primary", size: "lg" })}>

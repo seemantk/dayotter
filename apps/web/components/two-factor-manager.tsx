@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { twoFactor } from "@/lib/auth/auth-client";
+import { BRAND } from "@/lib/marketing";
 import { CheckCircle2, Copy, ShieldCheck, ShieldOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -133,7 +134,7 @@ export function TwoFactorManager({ enabled }: { enabled: boolean }) {
     return (
       <form onSubmit={confirmEnable} className="space-y-4">
         <div>
-          <p className="text-sm font-medium">1. Add DayOtter to your authenticator app</p>
+          <p className="text-sm font-medium">1. Add {BRAND.name} to your authenticator app</p>
           <p className="mt-1 text-sm text-[var(--color-muted)]">
             In Google Authenticator, 1Password, Authy, etc., add an account by entering this setup
             key manually:

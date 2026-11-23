@@ -1,3 +1,4 @@
+import { BRAND } from "@/lib/marketing";
 import { hmacSha256hex, safeEqual } from "@dayotter/core";
 import { eq, getDb, schema } from "@dayotter/db";
 
@@ -6,7 +7,7 @@ export const dynamic = "force-dynamic";
 function page(message: string): Response {
   return new Response(
     `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-     <title>DayOtter</title>
+     <title>${BRAND.name}</title>
      <div style="max-width:420px;margin:12vh auto;font-family:ui-sans-serif,system-ui,sans-serif;text-align:center;color:#0c0e14">
        <h1 style="font-size:18px">${message}</h1>
        <p style="color:#6b7280;font-size:14px">You'll still get transactional emails (booking confirmations, reminders). You can turn tips back on any time in Settings.</p>
@@ -39,5 +40,5 @@ export async function GET(request: Request): Promise<Response> {
       set: { productEmails: false },
     });
 
-  return page("You're unsubscribed from DayOtter tips.");
+  return page("You're unsubscribed from tips.");
 }

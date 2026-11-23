@@ -69,14 +69,12 @@ export async function POST(request: Request): Promise<Response> {
   });
   if (!user || !user.phoneNumberVerified) {
     return twiml(
-      "I don't recognize this number. Add and verify it in DayOtter → Settings to chat with Otter.",
+      "I don't recognize this number. Add and verify it in Settings to chat with Otter.",
     );
   }
 
   if (!aiEnabled || !(await userHasFeature(user.id, "ai"))) {
-    return twiml(
-      "Otter isn't available on your plan. Upgrade in DayOtter to chat with your assistant.",
-    );
+    return twiml("Otter isn't available on your plan. Upgrade to chat with your assistant.");
   }
   if (await rateLimited(user.id)) {
     return twiml("You're going a bit fast - give me a minute and try again.");

@@ -29,6 +29,12 @@ FILES=(-f docker-compose.prod.yml)
 if [ -f docker-compose.nginx.yml ]; then
   FILES+=(-f docker-compose.nginx.yml)
 fi
+# Site-specific overrides (published port, compose project name). Auto-detect it
+# so a port other than the nginx.yml default can't silently drift from the
+# running container.
+if [ -f docker-compose.local.yml ]; then
+  FILES+=(-f docker-compose.local.yml)
+fi
 DC=(docker compose "${FILES[@]}" --env-file .env)
 
 echo "==> Building images"

@@ -1,4 +1,5 @@
 export { sendEmail, type OutboundEmail } from "./mailer";
+export { brandName } from "./brand";
 export {
   EMAIL_LOCALES,
   type EmailLocale,
