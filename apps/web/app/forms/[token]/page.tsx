@@ -1,10 +1,9 @@
 import { RoutingRunner } from "@/components/routing-runner";
 import { Card, CardBody } from "@/components/ui/card";
-import { BRAND } from "@/lib/marketing";
+import { BRAND, UPSTREAM } from "@/lib/marketing";
 import { getFormByToken } from "@/lib/routing/routing";
 import { Split } from "lucide-react";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -45,9 +44,9 @@ export default async function PublicRoutingFormPage({
       </Card>
       <p className="mt-6 text-center text-xs text-[var(--color-faint)]">
         Powered by{" "}
-        <Link href="/" className="hover:text-[var(--color-text)]">
-          {BRAND.name}
-        </Link>
+        <a href={UPSTREAM.url} className="hover:text-[var(--color-text)]">
+          {UPSTREAM.name}
+        </a>
       </p>
     </main>
   );

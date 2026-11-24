@@ -24,6 +24,16 @@ export const BRAND = {
   copyrightYear: 2026,
 };
 
+/**
+ * The upstream project this deploy actually runs on. Public "Powered by"
+ * footers credit and link DayOtter regardless of the local brand name -
+ * claiming otherwise would be false attribution.
+ */
+export const UPSTREAM = {
+  name: "DayOtter",
+  url: "https://dayotter.com",
+} as const;
+
 export interface FooterLink {
   label: string;
   href: string;
