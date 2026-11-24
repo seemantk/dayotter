@@ -8,5 +8,12 @@ import { BRAND } from "../marketing";
  */
 export function jitsiRoomUrl(uid: string): string {
   const base = (process.env.JITSI_BASE_URL || "https://meet.jit.si").replace(/\/+$/, "");
-  return `${base}/${BRAND.name}-${uid}`;
+  // Room names are URL path segments: slugify so multi-word brand names
+  // ("Seemant Kulleen") don't produce %20 paths.
+  const slug =
+    BRAND.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "dayotter";
+  return `${base}/${slug}-${uid}`;
 }

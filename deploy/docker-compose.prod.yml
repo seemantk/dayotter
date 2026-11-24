@@ -52,7 +52,7 @@ services:
     # building the SAME tag (dayotter-app:local) makes Compose/Bake export it
     # twice in parallel -> "image ... already exists". `worker` is the single
     # build target for this tag; migrate just runs a one-shot command against it.
-    image: dayotter-app:local
+    image: ${APP_IMAGE:-dayotter-app:local}
     env_file: .env
     environment:
       <<: *app-env
@@ -71,6 +71,9 @@ services:
       args:
         NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-}
         NEXT_PUBLIC_BRAND_NAME: ${NEXT_PUBLIC_BRAND_NAME:-}
+        NEXT_PUBLIC_BRAND_THEME_COLOR: ${NEXT_PUBLIC_BRAND_THEME_COLOR:-}
+        # Overlay brand-variant assets (icon/OG/illustrations/theme) at build.
+        BRAND_VARIANT: ${BRAND_VARIANT:-}
         NEXT_PUBLIC_GOOGLE_AUTH: ${NEXT_PUBLIC_GOOGLE_AUTH:-}
         NEXT_PUBLIC_PHONE_AUTH: ${NEXT_PUBLIC_PHONE_AUTH:-}
         NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${NEXT_PUBLIC_VAPID_PUBLIC_KEY:-}
@@ -78,7 +81,9 @@ services:
         NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
         NEXT_PUBLIC_MIXPANEL_TOKEN: ${NEXT_PUBLIC_MIXPANEL_TOKEN:-}
         NEXT_PUBLIC_GA_ID: ${NEXT_PUBLIC_GA_ID:-}
-    image: dayotter-web:local
+    # Image tags are env-parameterized so two stacks on one host (different
+    # brand build args) never overwrite each other's tags.
+    image: ${WEB_IMAGE:-dayotter-web:local}
     restart: unless-stopped
     env_file: .env
     environment:
@@ -95,7 +100,7 @@ services:
     build:
       context: ..
       dockerfile: apps/worker/Dockerfile
-    image: dayotter-app:local
+    image: ${APP_IMAGE:-dayotter-app:local}
     restart: unless-stopped
     env_file: .env
     environment:

@@ -6,6 +6,9 @@ const BRAND_NAME = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "DayOtter";
 
 export const BRAND = {
   name: BRAND_NAME,
+  /** Browser/PWA theme color (manifest theme_color, global-error button).
+   * Env-overridable per brand; the CSS accent lives in globals.css/theme.css. */
+  themeColor: process.env.NEXT_PUBLIC_BRAND_THEME_COLOR?.trim() || "#6743e6",
   tagline: "The calm home for your time.",
   /** Canonical site origin - drives metadataBase, sitemap, canonical URLs, JSON-LD.
    * Use `||`, not `??`: the Docker build sets NEXT_PUBLIC_APP_URL to an EMPTY

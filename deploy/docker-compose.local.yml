@@ -1,10 +1,17 @@
 # Site-specific overrides: pin the compose project name and the published web
-# port (host nginx proxies to 127.0.0.1:3011). `!override` REPLACES the ports
-# list from docker-compose.nginx.yml instead of appending it - without it we'd
-# also bind :3000, which another stack on this host already owns.
-name: metrograph
+# port. Both come from deploy/.env so ONE committed file serves every stack on
+# a host (metrograph on 3011, seemantk on 3000, ...) - fail loudly if unset
+# rather than silently defaulting into another stack's port/project.
+#
+#   COMPOSE_PROJECT_NAME=metrograph
+#   WEB_BIND=127.0.0.1:3011
+#
+# `!override` REPLACES the ports list from docker-compose.nginx.yml instead of
+# appending it - without it we'd also bind :3000, which another stack on this
+# host already owns.
+name: ${COMPOSE_PROJECT_NAME:?set COMPOSE_PROJECT_NAME in deploy/.env}
 
 services:
   web:
     ports: !override
-      - "127.0.0.1:3011:3000"
+      - "${WEB_BIND:?set WEB_BIND in deploy/.env}"

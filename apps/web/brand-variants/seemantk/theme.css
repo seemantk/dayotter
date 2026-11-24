@@ -1,0 +1,14 @@
+/* seemantk.com brand accent, appended to globals.css by the BRAND_VARIANT
+   build step (after @theme/.dark, so these plain rules win the cascade).
+   Keep in sync with NEXT_PUBLIC_BRAND_THEME_COLOR in deploy/.env. */
+:root {
+  --color-accent: #4361ee;
+  --color-accent-hover: #3a56d4;
+  --color-accent-soft: #e8ecfd;
+}
+
+.dark {
+  --color-accent: #6b8aff;
+  --color-accent-hover: #8aa0ff;
+  --color-accent-soft: rgba(107, 138, 255, 0.16);
+}

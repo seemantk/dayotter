@@ -20,6 +20,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # feature stays hidden.
 ARG NEXT_PUBLIC_APP_URL=""
 ARG NEXT_PUBLIC_BRAND_NAME=""
+ARG NEXT_PUBLIC_BRAND_THEME_COLOR=""
 ARG NEXT_PUBLIC_GOOGLE_AUTH=""
 ARG NEXT_PUBLIC_PHONE_AUTH=""
 ARG NEXT_PUBLIC_VAPID_PUBLIC_KEY=""
@@ -29,6 +30,7 @@ ARG NEXT_PUBLIC_MIXPANEL_TOKEN=""
 ARG NEXT_PUBLIC_GA_ID=""
 ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
     NEXT_PUBLIC_BRAND_NAME=$NEXT_PUBLIC_BRAND_NAME \
+    NEXT_PUBLIC_BRAND_THEME_COLOR=$NEXT_PUBLIC_BRAND_THEME_COLOR \
     NEXT_PUBLIC_GOOGLE_AUTH=$NEXT_PUBLIC_GOOGLE_AUTH \
     NEXT_PUBLIC_PHONE_AUTH=$NEXT_PUBLIC_PHONE_AUTH \
     NEXT_PUBLIC_VAPID_PUBLIC_KEY=$NEXT_PUBLIC_VAPID_PUBLIC_KEY \
@@ -36,6 +38,18 @@ ENV NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL \
     NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY \
     NEXT_PUBLIC_MIXPANEL_TOKEN=$NEXT_PUBLIC_MIXPANEL_TOKEN \
     NEXT_PUBLIC_GA_ID=$NEXT_PUBLIC_GA_ID
+# Per-deploy brand assets: when BRAND_VARIANT is set, overlay the variant's
+# files (icon, PWA/OG images, illustrations) and append its theme overrides to
+# globals.css BEFORE building - so one repo can produce differently-branded
+# images without git hacks. Empty/unknown-with-no-dir = default brand assets.
+ARG BRAND_VARIANT=""
+RUN if [ -n "$BRAND_VARIANT" ]; then \
+      V="apps/web/brand-variants/$BRAND_VARIANT"; \
+      if [ ! -d "$V" ]; then echo "unknown BRAND_VARIANT=$BRAND_VARIANT" >&2; exit 1; fi; \
+      cp -R "$V/public/." apps/web/public/; \
+      cp "$V/app/opengraph-image.png" apps/web/app/opengraph-image.png; \
+      cat "$V/theme.css" >> apps/web/app/globals.css; \
+    fi
 # `next build` on this monorepo peaks above Node's default ~2 GB heap cap and
 # dies with an OOM mark-compact loop. Raise the ceiling for the build only.
 ENV NODE_OPTIONS=--max-old-space-size=4096

@@ -1,11 +1,12 @@
 import { cn } from "@/lib/cn";
 
 /**
- * The Metrograph brand mark - the map-pin-with-pulse app icon.
+ * The brand mark - the shared app icon at /brand/icon.svg (Metrograph's map-pin
+ * by default; a BRAND_VARIANT build overlays its own mark).
  *
- * Renders the shared asset at /brand/icon.svg. This is the single source of the
- * logo across the app (sidebar, mobile nav, marketing nav + footer, auth panel);
- * swap the asset file to update every placement at once.
+ * This is the single source of the logo across the app (sidebar, mobile nav,
+ * marketing nav + footer, auth panel); swap the asset file to update every
+ * placement at once.
  */
 export function BrandMark({
   size = 28,

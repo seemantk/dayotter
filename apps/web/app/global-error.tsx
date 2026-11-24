@@ -1,7 +1,10 @@
 "use client";
 
+import { BRAND } from "@/lib/marketing";
+
 // global-error replaces the root layout, so it can't rely on app CSS/fonts -
-// keep it self-contained with inline brand styling.
+// keep it self-contained with inline brand styling (BRAND values are
+// build-time constants, so this stays dependency-free at runtime).
 export default function GlobalError({ reset }: { error: Error; reset: () => void }) {
   return (
     <html lang="en">
@@ -36,7 +39,7 @@ export default function GlobalError({ reset }: { error: Error; reset: () => void
           onClick={reset}
           style={{
             marginTop: 24,
-            background: "#6743e6",
+            background: BRAND.themeColor,
             color: "#fff",
             border: "none",
             borderRadius: 10,
