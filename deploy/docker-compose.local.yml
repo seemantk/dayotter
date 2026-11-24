@@ -4,14 +4,15 @@
 # rather than silently defaulting into another stack's port/project.
 #
 #   COMPOSE_PROJECT_NAME=metrograph
-#   WEB_BIND=127.0.0.1:3011
+#   WEB_BIND=127.0.0.1:3011   (or just 3011)
 #
-# `!override` REPLACES the ports list from docker-compose.nginx.yml instead of
-# appending it - without it we'd also bind :3000, which another stack on this
-# host already owns.
+# WEB_BIND is the host half only (ip:port or port); the container side is
+# always 3000. `!override` REPLACES the ports list from docker-compose.nginx.yml
+# instead of appending it - without it we'd also bind :3000, which another stack
+# on this host already owns.
 name: ${COMPOSE_PROJECT_NAME:?set COMPOSE_PROJECT_NAME in deploy/.env}
 
 services:
   web:
     ports: !override
-      - "${WEB_BIND:?set WEB_BIND in deploy/.env}"
+      - "${WEB_BIND:?set WEB_BIND in deploy/.env}:3000"
